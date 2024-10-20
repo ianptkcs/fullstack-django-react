@@ -1,0 +1,39 @@
+# Sistema operacional
+*.DS_Store
+*.log
+*.pot
+*.pyc
+*.swp
+*~
+
+# Diretórios do Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ambiente virtual
+venv/
+env/
+ENV/
+.venv/
+.virtualenv/
+
+# Configurações do editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Diretórios do Django
+*.sqlite3
+db.sqlite3
+/media
+/staticfiles
+/static
+
+# Arquivos de configuração
+.env
+.env.local
+.env.*.local
+
+/certs/*
