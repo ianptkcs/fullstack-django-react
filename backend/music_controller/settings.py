@@ -11,6 +11,17 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+# from os import environ
+
+# # Load environment variables
+# from dotenv import load_dotenv
+
+# load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,10 +33,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-8@%jt=5q0j$2r=e8ut3cjp$256fp*(@)@i8gn)6_azl3nl(t1v"
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".vercel.app"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -69,17 +81,16 @@ CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",  # Domínio do front-end
-    "https://b207-201-75-189-58.ngrok-free.app/",
 ]
 
 # Cookies de Sessão
 
 # Segurança
-SECURE_SSL_REDIRECT = True  # Redireciona todas as requisições HTTP para HTTPS
-SESSION_COOKIE_SECURE = True  # Cookies de sessão apenas via HTTPS
-CSRF_COOKIE_SECURE = True  # Cookies CSRF apenas via HTTPS
-CSRF_COOKIE_SAMESITE = "Lax"  # Ajuste conforme necessário
-SESSION_COOKIE_SAMESITE = "Lax"
+SECURE_SSL_REDIRECT = False  # Redireciona todas as requisições HTTP para HTTPS
+SESSION_COOKIE_SECURE = False  # Cookies de sessão apenas via HTTPS
+CSRF_COOKIE_SECURE = False  # Cookies CSRF apenas via HTTPS
+CSRF_COOKIE_SAMESITE = "Strict"  # Ajuste conforme necessário
+SESSION_COOKIE_SAMESITE = "Strict"
 
 
 ROOT_URLCONF = "music_controller.urls"
@@ -108,8 +119,12 @@ WSGI_APPLICATION = "music_controller.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("DB_NAME"),
+        "USER": os.getenv("DB_USER"),
+        "PASSWORD": os.getenv("DB_PWD"),
+        "HOST": os.getenv("DB_HOST"),
+        "PORT": os.getenv("DB_PORT"),
     }
 }
 

@@ -12,15 +12,15 @@ interface RoomPageProps {
 
 const RoomPage = ({ params }: RoomPageProps) => {
 	const getRoomApi = process.env.NEXT_PUBLIC_GET_ROOM_API;
-	const isAuthenticatedApi = process.env.NEXT_PUBLIC_IS_AUTHENTICATED_API;
-	const getAuthUrlAPI = process.env.NEXT_PUBLIC_GET_AUTH_URL_API;
+	// 	const isAuthenticatedApi = process.env.NEXT_PUBLIC_IS_AUTHENTICATED_API;
+	// const getAuthUrlAPI = process.env.NEXT_PUBLIC_GET_AUTH_URL_API;
 	const { code } = params;
 	const router = useRouter();
-	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+	// const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 	const [room, setRoom] = useState<RoomInterface | null>(null);
 
 	const hasFetched = useRef<string>();
-	const isAuthenticating = useRef<boolean>(false);
+	// const isAuthenticating = useRef<boolean>(false);
 
 	const handleSettings = () => {
 		router.push(`/room/${code}/settings`);
@@ -50,7 +50,7 @@ const RoomPage = ({ params }: RoomPageProps) => {
 					hasFetched.current = code;
 
 					if (data.is_host) {
-						authenticateSpotify();
+						// authenticateSpotify();
 					}
 				}
 			} catch (error) {
@@ -65,43 +65,43 @@ const RoomPage = ({ params }: RoomPageProps) => {
 		};
 	}, [code]);
 
-	const authenticateSpotify = async () => {
-		if (isAuthenticating.current) return;
+	// const authenticateSpotify = async () => {
+	// 	if (isAuthenticating.current) return;
 
-		isAuthenticating.current = true;
+	// 	isAuthenticating.current = true;
 
-		try {
-			const response = await fetch(`${isAuthenticatedApi}`, {
-				method: 'GET',
-				credentials: 'include',
-				headers: { 'Content-Type': 'application/json' },
-			});
+	// 	try {
+	// 		const response = await fetch(`${isAuthenticatedApi}`, {
+	// 			method: 'GET',
+	// 			credentials: 'include',
+	// 			headers: { 'Content-Type': 'application/json' },
+	// 		});
 
-			const data = await response.json();
+	// 		const data = await response.json();
 
-			if (data.status) {
-				setIsAuthenticated(true);
-			} else {
-				try {
-					const response = await fetch(`${getAuthUrlAPI}`, {
-						method: 'GET',
-						credentials: 'include',
-						headers: { 'Content-Type': 'application/json' },
-					});
+	// 		if (data.status) {
+	// 			setIsAuthenticated(true);
+	// 		} else {
+	// 			try {
+	// 				const response = await fetch(`${getAuthUrlAPI}`, {
+	// 					method: 'GET',
+	// 					credentials: 'include',
+	// 					headers: { 'Content-Type': 'application/json' },
+	// 				});
 
-					const authUrl = await response.json();
-					console.log('Auth URL:', authUrl.url);
-					router.push(authUrl.url);
-				} catch (error) {
-					console.error('Error getting auth URL:', error);
-				}
-			}
-		} catch (error) {
-			console.error('Error authenticating Spotify:', error);
-		} finally {
-			isAuthenticating.current = false;
-		}
-	};
+	// 				const authUrl = await response.json();
+	// 				console.log('Auth URL:', authUrl.url);
+	// 				router.push(authUrl.url);
+	// 			} catch (error) {
+	// 				console.error('Error getting auth URL:', error);
+	// 			}
+	// 		}
+	// 	} catch (error) {
+	// 		console.error('Error authenticating Spotify:', error);
+	// 	} finally {
+	// 		isAuthenticating.current = false;
+	// 	}
+	// };
 
 	if (!room) {
 		return <div>Loading room details...</div>;
